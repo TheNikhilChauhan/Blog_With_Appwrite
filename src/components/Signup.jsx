@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import authService from "../appwrite/appwrite";
-import { Link, navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, Input, Logo } from "./index";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
