@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import { useForm } from "react-hook-form";
-import { Button, Input, Select, RTE } from "../index";
-import service from "../../appwrite/conf";
+import { Button, Input, Select, RTE } from "../index.js";
+import appwriteService from "../../appwrite/conf";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -21,12 +21,14 @@ function PostForm({ post }) {
 
   const submit = async (data) => {
     if (post) {
-      const file = data.image[0] ? service.uploadFile(data.image[0]) : null;
+      const file = data.image[0]
+        ? appwriteService.uploadFile(data.image[0])
+        : null;
 
       if (file) {
-        service.deleteFile(post.featuredImage);
+        appwriteService.deleteFile(post.featuredImage);
       }
-      const dbPost = await service.updatePost(post.$id, {
+      const dbPost = await appwriteService.updatePost(post.$id, {
         ...data,
         featuredImage: file ? file.$id : undefined,
       });
@@ -35,12 +37,12 @@ function PostForm({ post }) {
         navigate(`/post/${dbPost.$id}`);
       }
     } else {
-      const file = await service.uploadFile(data.image[0]);
+      const file = await appwriteService.uploadFile(data.image[0]);
 
       if (file) {
         const fileId = file.$id;
         data.featuredImage = fileId;
-        const dbPost = await service.createPost({
+        const dbPost = await appwriteService.createPost({
           ...data,
           userId: userData.$id,
         });
@@ -111,7 +113,7 @@ function PostForm({ post }) {
         {post && (
           <div>
             <img
-              src={service.getFilePreview(post.featuredImage)}
+              src={appwriteService.getFilePreview(post.featuredImage)}
               alt={post.title}
               className="rounded-lg"
             />

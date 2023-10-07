@@ -6,11 +6,12 @@ import store from "./store/store.js";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Home from "./pages/Home.jsx";
-import { AuthLayout, Login, Signup } from "./components/index.js";
-import Post from "./pages/Post.jsx";
+import { AuthLayout, Login } from "./components/index.js";
+import Post from "./pages/Post";
 import AddPost from "./pages/AddPost";
 import AllPosts from "./pages/AllPosts";
 import EditPost from "./pages/EditPost";
+import Signup from "./pages/Signup";
 
 const router = createBrowserRouter([
   {
@@ -40,7 +41,7 @@ const router = createBrowserRouter([
       {
         path: "/all-posts",
         element: (
-          <AuthLayout authentication={false}>
+          <AuthLayout authentication>
             <AllPosts />
           </AuthLayout>
         ),
@@ -48,7 +49,7 @@ const router = createBrowserRouter([
       {
         path: "/add-post",
         element: (
-          <AuthLayout authentication={false}>
+          <AuthLayout authentication>
             <AddPost />
           </AuthLayout>
         ),
@@ -56,7 +57,7 @@ const router = createBrowserRouter([
       {
         path: "/edit-post/:slug",
         element: (
-          <AuthLayout authentication={false}>
+          <AuthLayout authentication>
             <EditPost />
           </AuthLayout>
         ),
